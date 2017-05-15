@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     
  
   def date_of_birth_check
-    if date_of_birth.present? && date_of_birth < Date.today
+    if date_of_birth.present? && date_of_birth > Date.today
       errors.add(:date_of_birth, "can't be in the preasent")
     end
   end

@@ -1,5 +1,6 @@
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :get_courses, only: [:new, :edit, :update, :create]
   before_action :authenticate_user!, except: [:index, :show]
 
   # GET /lectures
@@ -25,6 +26,10 @@ class LecturesController < ApplicationController
 
   # POST /lectures
   # POST /lectures.json
+  def get_courses
+    @courses = Course.where(user_id: current_user.try(:id))
+  end
+    
   def upvote
       @lecture = Lecture.find(params[:id])
       @lecture.upvote_from current_user
