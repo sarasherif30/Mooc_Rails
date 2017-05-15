@@ -1,25 +1,14 @@
 <p id="notice" class="alert alert-info"><%= notice %></p>
 
-<h1>Lectures</h1>
-
-<!-- <table>
-  
-</table>
-
-<br> -->
-
-
-
-<table class="table table-striped">
+<table class="table  table-hover">
   <thead>
     <tr>
-
-   
+      <th>Title</th>
       <th>Content</th>
 
       <th>Attachment</th>
+      <th>User Email</th>
       
-      <th>Title</th>
 
       <th colspan="3"></th>
     </tr>
@@ -28,13 +17,14 @@
   <tbody>
     <% @lectures.each do |lecture| %>
       <tr>
-        <td><%= lecture.content %></td>
-        <td><%= lecture.attachment %></td>
         <td><%= lecture.try(:course).try(:title) %></td>
-        <td><%= link_to 'Show', lecture %></td>
+        <td><%= raw lecture.content %></td>
+        <td><%= lecture.attachment %></td>
+        <td><%= lecture.try(:user).try(:email) %></td>
+        <td><%= link_to 'Show', lecture ,class:"btn btn-info"%></td>
         <% if lecture.user == current_user %>
-        <td><%= link_to 'Edit', edit_lecture_path(lecture) %></td>
-        <td><%= link_to 'Destroy', lecture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_lecture_path(lecture) ,class:"btn btn-info"%></td>
+        <td><%= link_to 'Destroy', lecture, method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-info"%></td>
         <% end %>
       </tr>
     <% end %>

@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   # validate :profile_picture_size_validation
  
 
-
   mount_uploader :profile_picture, ImageUploader
     
  
@@ -29,6 +28,6 @@ class User < ActiveRecord::Base
 
 	has_many :courses ,:dependent=>:delete_all
 	has_many :lectures ,:dependent=>:delete_all
-   
+  has_many :comment ,:dependent=>:delete_all
    acts_as_voter
 end

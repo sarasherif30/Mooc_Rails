@@ -1,61 +1,50 @@
-<!-- <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @lecture.content %>
-</p>
-
-<p>
-  <strong>Attachment:</strong>
-  <%= @lecture.attachment %>
-
-  <strong>Course Title</strong>
-  <%= @lecture.try(:course).try(:title) %>
-</p>
-
-<%= link_to 'Edit', edit_lecture_path(@lecture) %> |
-<%= link_to 'Back', lectures_path %> -->
 
 <div class="container">
 
-  <%if  flash[:danger] %>
-  <div class="alert alert-danger" role="alert">
-  <%= flash[:danger] %>
-  </div>
-  <%end%>
-  </p>
-  <div class="jumbotron col-md-8 col-md-offset-2">
-  <pre>
-  Title: <%= @lecture.title %>
+  <div class="jumbotron ">
+  <!-- <pre> -->
+  Title: <%= @lecture.title %><br>
 
-  Content: <%= @lecture.content %>
+  Content: <%= raw @lecture.content %>
 
-
- <span class=" glyphicon glyphicon-download-alt "> </span> Download:<a href="<%= @lecture.attachment_url %>" download><%= @lecture.attachment %></a> <% if current_user&&@lecture.user==current_user  %>
-<h4><%= link_to 'Edit', edit_lecture_path(@lecture) %>|<%= link_to 'Delete', lectures_path %></h4>
-     
-<% end %></pre>
+ <span class=" glyphicon glyphicon-download-alt "> </span> Download Attachment <a href="<%= @lecture.attachment_url %>" download> <%= @lecture.attachment %></a>
+  <% if current_user && @lecture.user == current_user %>
+  <% end %>
+  <!-- </pre> -->
+  <br><br>
   <%= link_to like_lecture_path(@lecture) , method: :put do %>
-  <button type="button" class="btn btn-info">
-        <span class="glyphicon glyphicon-thumbs-up glyphicon-align-center " > </span>
-        <span ><%= @lecture.get_upvotes.size %></span>
-  </button>        
- <% end  %>     
- <%= link_to dislike_lecture_path(@lecture) , method: :put do %>
     <button type="button" class="btn btn-info">
-          <span class=" glyphicon glyphicon-exclamation-sign glyphicon-align-center "> </span>
-          <span ><%= @lecture.get_downvotes.size %></span>
+      <span class="glyphicon glyphicon-thumbs-up" >Like </span>
+      <span ><%= @lecture.get_upvotes.size %></span>
+    </button>        
+    <% end  %>     
+  <%= link_to dislike_lecture_path(@lecture) , method: :put do %>
+    <button type="button" class="btn btn-info">
+      <span class=" glyphicon glyphicon-exclamation-sign">Spam</span>
+      <span ><%= @lecture.get_downvotes.size %></span>
     </button>
-
- <% end  %>
+    <% end  %>
  
 
    </div> 
-      
-    </div>
-    <h4><%= link_to 'Back', lectures_path ,class:"btn btn-info"%></h4>
 
-    <style>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h2> Comments </h2>
+    </div>
+    <div class="panel-body">
+     <%= render 'comments/comment' %>
+    </div>
+        
+  </div>
+</div>  
+  <h4>
+    <%= link_to 'Back', lectures_path ,class:"btn btn-info"%>
+  </h4>
+
+
+
+<style>
   .jumbotron{
     background: pink;
   }

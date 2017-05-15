@@ -8,5 +8,7 @@ class Lecture < ActiveRecord::Base
 
 	belongs_to :user
   	belongs_to :course
+  	has_many :comments,:dependent=>:delete_all
+
   	acts_as_votable
 end

@@ -7,22 +7,22 @@
   <%= csrf_meta_tags %>
 
   <!-- bootstap onile links -->
-  <meta charset="utf-8">
+  <!-- <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <!-- end bootstrap -->
   <style>
   .img{
-    height: 50px;
+    height: 70px;
     float: left;
     margin-right: 15px;
   }
-  /*.back{
-    width: 75%;
-    background-size: cover;
-  }*/
+  h5 , img {
+    float: right;
+
+  }
 </style>
 </head>
 <body>
@@ -44,15 +44,18 @@
       <li><%= link_to 'Lectures' , lectures_path %></li>
       <% if current_user.present? %>
           <li><%= link_to "Log out", destroy_user_session_path, :method => "delete" %></li>
+
+          <h5 style="color: #fff"> Welcome:<img src="<%= current_user.profile_picture %>" width="30" height="30"/> <%= current_user.try(:email)%></h5>
+          <%= link_to "Edit Profile", edit_user_registration_path %>
         <% else %>       
           <li><%= link_to "Log in", new_user_session_path %></li>
           <li><%= link_to "Sign up", new_user_registration_path %></li>
         <% end %>
     </ul>
-    <!-- <h4> Welcome: <%= current_user.try(:email)%></h4> -->
+    
   </div>
 </nav>
-   <p class="notice" class="alert alert-danger"><%= notice %></p>
+   <p class="notice alert alert-danger"><%= notice %></p>
    <p class="alert" class="alert alert-info"><%= alert %></p>
    
 <div class="container"><%= yield %></div>

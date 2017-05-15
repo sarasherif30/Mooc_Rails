@@ -11,6 +11,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
+    @comments = Comment.where(lecture_id: @lecture).order("created_at DESC")
   end
 
   # GET /lectures/new
@@ -38,7 +39,7 @@ class LecturesController < ApplicationController
   
   def create
     @lecture = Lecture.new(lecture_params)
-
+    @lecture.user_id = current_user.id
     respond_to do |format|
       if @lecture.save
         format.html { redirect_to @lecture, notice: 'Lecture was successfully created.' }
@@ -83,6 +84,6 @@ class LecturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lecture_params
-      params.require(:lecture).permit(:title, :content, :attachment,:course_id)
+      params.require(:lecture).permit(:title, :content, :attachment,:course_id, :user_id)
     end
 end
